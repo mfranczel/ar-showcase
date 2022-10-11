@@ -1,5 +1,5 @@
 const { merge } = require('webpack-merge')
-
+const fs = require('fs')
 const common = require('./webpack.common')
 
 module.exports = merge(common, {
@@ -15,7 +15,11 @@ module.exports = merge(common, {
     open: true,
     compress: true,
     hot: true,
-    port: 8080,
+    port: 80,
+    https: {
+      key: fs.readFileSync('/Users/michalfranczel/Work/keys/key_dev.pem'),
+      cert: fs.readFileSync('/Users/michalfranczel/Work/keys/cert_dev.pem'),
+    },
   },
 
   module: {
