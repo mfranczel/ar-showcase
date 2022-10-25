@@ -1,10 +1,11 @@
 
 // import target from './nfts/multitarget-erste.mind'
-import target from './nfts/multitarget-erste-4.mind'
+import target from './nfts/multitarget-erste-min-min.mind'
 import mjolnirModel from './models/mjolnir.glb'
 import notebookModel from './models/notebook.glb'
 import edModel from './models/ed_logo.glb'
 import tshirtModel from './models/tshirt.glb'
+import balloonsModel from './models/balloons.glb'
 import { GLTFLoader, TextureLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
@@ -12,13 +13,29 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import iconWeb from './images/icon-web.svg'
 import iconLinkedin from './images/icon-linkedin.svg'
 
+import stickerBlueImage from './images/sticker-b.svg'
+import stickerGreenImage from './images/sticker-g.svg'
+import stickerRedImage from './images/sticker-r.svg'
+
+import matcapImage from './textures/text_matcap_04.png'
+import matcapImageBlue from './textures/text_matcap_01b.png'
+import matcapImageGreen from './textures/text_matcap_01g.png'
+
 const THREE = window.MINDAR.IMAGE.THREE;
 const gltfLoader = new GLTFLoader();
 
 const webTexture = new THREE.TextureLoader().load( iconWeb );
 const linkedinTexture = new THREE.TextureLoader().load( iconLinkedin );
 
-let mixer, raycaster, mouse, mjolnir = null;
+const stickerBlueTexture = new THREE.TextureLoader().load( stickerBlueImage );
+const stickerGreenTexture = new THREE.TextureLoader().load( stickerGreenImage );
+const stickerRedTexture = new THREE.TextureLoader().load( stickerRedImage );
+
+const matcapTexture = new THREE.TextureLoader().load( matcapImage )
+const matcapTextureGreen = new THREE.TextureLoader().load( matcapImageGreen )
+const matcapTextureBlue = new THREE.TextureLoader().load( matcapImageBlue )
+
+let mixer, raycaster, mouse, mjolnir, mixer4 = null;
 let mjolnirTime = 0;
 let playingModel = -1;
 
@@ -37,45 +54,48 @@ const mindarThree = new window.MINDAR.IMAGE.MindARThree({
 
 const {renderer, scene, camera} = mindarThree;
 
-let anchor, anchor1, anchor1_b, anchor2, anchor2_b, anchor2_c, anchor2_a2, anchor2_b2, anchor2_c2,  anchor2_a3, anchor2_b3, anchor2_c3, anchor3, anchor4, anchor5;
+let anchor, anchor1a, anchor2a, anchor3, anchor4;
 
 renderer.gammaOutput = true;
 
-anchor = mindarThree.addAnchor(0);  // Button
+anchor = mindarThree.addAnchor(0);  // Button - Done
 
-anchor1 = mindarThree.addAnchor(1); // notebook TODO: GIF
-anchor1_b = mindarThree.addAnchor(2); // notebook TODO: GIF
+anchor1a = mindarThree.addAnchor(1); // notebook IT Green TODO: GIF
 
-anchor2 = mindarThree.addAnchor(3); // Colored Text: TODO: obrazky pre nalepky, ikonky pre linky
-anchor2_b = mindarThree.addAnchor(4);
-anchor2_c = mindarThree.addAnchor(5);
+anchor2a = mindarThree.addAnchor(2); // Colored Text Cloud red: - Done
 
-anchor2_a2 = mindarThree.addAnchor(6);
-anchor2_b2 = mindarThree.addAnchor(7);
-anchor2_c2 = mindarThree.addAnchor(8);
+anchor3 = mindarThree.addAnchor(3); // battery
 
-anchor2_a3 = mindarThree.addAnchor(9);
-anchor2_b3 = mindarThree.addAnchor(10);
-anchor2_c3 = mindarThree.addAnchor(11);
-
-// anchor3 = mindarThree.addAnchor(6); // airtag
-anchor4 = mindarThree.addAnchor(12); // battery
-anchor5 = mindarThree.addAnchor(13); // puzzle TODO: animacie, rozbijanie
+anchor4 = mindarThree.addAnchor(4); // puzzle TODO: animacie, rozbijanie
 
 raycaster = new THREE.Raycaster()
 mouse = new THREE.Vector2()
 document.getElementById('container').addEventListener('click', onClick, false);
 
-const material = new THREE.MeshBasicMaterial( {color: 0xdb3039, transparent: true, opacity: 1} );
-const material_r = new THREE.MeshBasicMaterial( {color: 0xA11274, transparent: true, opacity:1} );
-const material_g = new THREE.MeshBasicMaterial( {color: 0x4CBE4A, transparent: true, opacity: 1} );
-const material_b = new THREE.MeshBasicMaterial( {color: 0x0F51EC, transparent: true, opacity: 1} );
+
+const material = new THREE.MeshMatcapMaterial( {matcap: matcapTexture} );
+
+const material_r = new THREE.MeshMatcapMaterial( {matcap: matcapTexture} );
+const material_g = new THREE.MeshMatcapMaterial( {matcap: matcapTextureGreen} );
+const material_b = new THREE.MeshMatcapMaterial( {matcap: matcapTextureBlue} );
 
 const material_icon_web = new THREE.MeshBasicMaterial( {
-    color: 0xA11274, transparent: true, opacity:1, map: webTexture, side: THREE.DoubleSide
+    color: 0xffffff, transparent: false, opacity:1, map: webTexture, side: THREE.DoubleSide
 } );
 const material_icon_linkedin = new THREE.MeshBasicMaterial( {
-    color: 0xA11274, transparent: true, opacity:1, map: linkedinTexture, side: THREE.DoubleSide
+    color: 0xffffff, transparent: false, opacity:1, map: linkedinTexture, side: THREE.DoubleSide
+} );
+
+const material_sticker_blue = new THREE.MeshBasicMaterial( {
+    color: 0xffffff, transparent: false, opacity:1, map: stickerBlueTexture, side: THREE.DoubleSide
+} );
+
+const material_sticker_green = new THREE.MeshBasicMaterial( {
+    color: 0xffffff, transparent: false, opacity:1, map: stickerGreenTexture, side: THREE.DoubleSide
+} );
+
+const material_sticker_red = new THREE.MeshBasicMaterial( {
+    color: 0xffffff, transparent: false, opacity:1, map: stickerRedTexture, side: THREE.DoubleSide
 } );
 
 
@@ -166,7 +186,7 @@ fontLoader.load(
         'For all your great ideas.', 
         {
             font: font,
-            size: 70,
+            size: 90,
             height: 5,
             curveSegments: 12,
             bevelEnabled: true,
@@ -218,6 +238,37 @@ fontLoader.load(
             bevelSegments: 5
         } 
     );
+
+    const noTextGeometry = new TextGeometry( 
+        'No', 
+        {
+            font: font,
+            size: 50,
+            height: 5,
+            curveSegments: 12,
+            bevelEnabled: true,
+            bevelThickness: 10,
+            bevelSize: 8,
+            bevelOffset: 0,
+            bevelSegments: 5
+        } 
+    );
+    const yesTextGeometry = new TextGeometry( 
+        'Yes', 
+        {
+            font: font,
+            size: 50,
+            height: 5,
+            curveSegments: 12,
+            bevelEnabled: true,
+            bevelThickness: 10,
+            bevelSize: 8,
+            bevelOffset: 0,
+            bevelSegments: 5
+        } 
+    );
+
+
     const buttonText = new THREE.Mesh( buttonTextGeometry, material)
     const noteText = new THREE.Mesh(notesTextGeometry, material)
     const coloredText = new THREE.Mesh(coloredTextGeometry, material)
@@ -227,10 +278,11 @@ fontLoader.load(
     const puzzleText2 = new THREE.Mesh(puzzleTextGeometry2, material_b)
     const puzzleText3 = new THREE.Mesh(puzzleTextGeometry3, material_r)
     const puzzleText4 = new THREE.Mesh(puzzleTextGeometry4, material_g)
+    const noText = new THREE.Mesh(noTextGeometry, material_r)
+    const yesText = new THREE.Mesh(yesTextGeometry, material_g)
 
     const decGeometry = new THREE.PlaneGeometry( .2, .2 );
-    const decMaterial = new THREE.MeshBasicMaterial( {color: 0x0F51EC, side: THREE.DoubleSide} );
-    const dec = new THREE.Mesh( decGeometry, decMaterial );
+    const dec = new THREE.Mesh( decGeometry, material_b );
     dec.rotation.set( Math.PI * .5, 0, Math.PI * .25)
     dec.position.set(.3, 0, .5)
 
@@ -238,11 +290,11 @@ fontLoader.load(
     buttonText.scale.set(.001, .001, .001)
     buttonText.rotation.set(.5 * Math.PI, 0, 0)
 
-    noteText.position.set(-.4, 0, .3)
+    noteText.position.set(-.6, 0, .3)
     noteText.scale.set(.001, .001, .001)
     noteText.rotation.set(.5 * Math.PI, 0, 0)
 
-    coloredText.position.set(-.4, 0, .5)
+    coloredText.position.set(-.4, 0, .55)
     coloredText.scale.set(.001, .001, .001)
     coloredText.rotation.set(.5 * Math.PI, 0, 0)
 
@@ -258,7 +310,7 @@ fontLoader.load(
     puzzleText.scale.set(.001, .001, .001)
     puzzleText.rotation.set(.5 * Math.PI, 0, 0)
 
-    puzzleText2.position.set(.55, 0, .5)
+    puzzleText2.position.set(.17, 0, .67)
     puzzleText2.scale.set(.001, .001, .001)
     puzzleText2.rotation.set(.5 * Math.PI, 0, 0)
 
@@ -270,51 +322,51 @@ fontLoader.load(
     puzzleText4.scale.set(.001, .001, .001)
     puzzleText4.rotation.set(.5 * Math.PI, 0, 0)
 
-    const arrowHelper = new THREE.ArrowHelper( new THREE.Vector3( 0, 0, -0.6 ), new THREE.Vector3( .3, 0, 0.85 ), .15, 0x0F51EC, .05, .1 );
-    const arrowHelperSuccess = new THREE.ArrowHelper( new THREE.Vector3( -.6, 0, -0.6 ), new THREE.Vector3( .2, 0, .4 ), .25, 0xA11274, .05, .1 );
-    const arrowHelperFail = new THREE.ArrowHelper( new THREE.Vector3( 0.6, 0, -0.6 ), new THREE.Vector3( .4, 0, 0.4 ), .25, 0x4CBE4A, .05, .1 );
+    noText.position.set(0.075, 0, .4)
+    noText.scale.set(.001, .001, .001)
+    noText.rotation.set(.5 * Math.PI, 0, 0)
+
+    yesText.position.set(.45, 0, .4)
+    yesText.scale.set(.001, .001, .001)
+    yesText.rotation.set(.5 * Math.PI, 0, 0)
+
+    const arrowHelper = new THREE.ArrowHelper( new THREE.Vector3( 0, 0, -0.7 ), new THREE.Vector3( .3, 0, 0.88 ), .15, 0x393975, .05, .1 );
+    const arrowHelperSuccess = new THREE.ArrowHelper( new THREE.Vector3( -.6, 0, -0.6 ), new THREE.Vector3( .2, 0, .4 ), .25, 0x550100, .05, .1 );
+    const arrowHelperFail = new THREE.ArrowHelper( new THREE.Vector3( 0.6, 0, -0.6 ), new THREE.Vector3( .4, 0, 0.4 ), .25, 0x2A8301, .05, .1 );
     
     anchor.group.add(buttonText)
 
-    anchor1.group.add(noteText)
-    anchor1_b.group.add(noteText)
-
-    anchor2.group.add(coloredText)
-    anchor2_b.group.add(coloredText)
-    anchor2_c.group.add(coloredText) 
-    anchor2_a2.group.add(coloredText) 
-    anchor2_b2.group.add(coloredText) 
-    anchor2_c2.group.add(coloredText) 
-    anchor2_a3.group.add(coloredText) 
-    anchor2_b3.group.add(coloredText) 
-    anchor2_c3.group.add(coloredText) 
+    anchor1a.group.add(noteText)
+    
+    anchor2a.group.add(coloredText)
 
     // anchor3.group.add(airTagText)
-    anchor4.group.add(powerbankText)
+    anchor3.group.add(powerbankText)
 
-
-    anchor5.group.rotation.set(Math.PI * 1,0,0)
-    anchor5.group.add(puzzleText)
-    anchor5.group.add(puzzleText2)
-    anchor5.group.add(puzzleText3)
-    anchor5.group.add(puzzleText4)
-    anchor5.group.add( dec )
-    anchor5.group.add(arrowHelper)
-    anchor5.group.add(arrowHelperSuccess)
-    anchor5.group.add(arrowHelperFail)
+    anchor4.group.rotation.set(Math.PI * 1,0,0)
+    anchor4.group.add(puzzleText)
+    anchor4.group.add(puzzleText2)
+    anchor4.group.add(puzzleText3)
+    anchor4.group.add(puzzleText4)
+    anchor4.group.add( dec )
+    anchor4.group.add(arrowHelper)
+    anchor4.group.add(arrowHelperSuccess)
+    anchor4.group.add(arrowHelperFail)
+    anchor4.group.add(noText)
+    anchor4.group.add(yesText)
     }
 )
 
 gltfLoader.load(
     mjolnirModel,
     (gltf) => {
-        gltf.scene.scale.set(.05, .05, .05)
+        gltf.scene.scale.set(.03, .03, .03)
         gltf.scene.rotation.set(.5 * Math.PI, 0, 0)
         gltf.scene.castShadow = true
         gltf.scene.receiveShadow = true
-        gltf.scene.position.set(-0.25, 0, 1.25)
+        gltf.scene.position.set(-0.25, 0, .6)
         mjolnir = gltf.scene
-        // anchor1.group.add(gltf.scene)
+        anchor4.group.add(gltf.scene)
         mixer = new THREE.AnimationMixer(gltf.scene)
         mixer.timeScale = 0
         const action = mixer.clipAction(gltf.animations[0])
@@ -332,8 +384,7 @@ gltfLoader.load(
         gltf.scene.receiveShadow = true
         gltf.scene.position.set(.15, 0, 1)
         mjolnir = gltf.scene
-        anchor1.group.add(gltf.scene)
-        anchor1_b.group.add(gltf.scene)
+        anchor1a.group.add(gltf.scene)
         mixer = new THREE.AnimationMixer(gltf.scene)
         playingModel = 1
         const action = mixer.clipAction(gltf.animations[0])
@@ -349,19 +400,37 @@ gltfLoader.load(
         gltf.scene.castShadow = true
         gltf.scene.receiveShadow = true
         gltf.scene.position.set(-.3, 0, .65)
-        console.log(gltf.scene.children)
         anchor.group.add(gltf.scene)
         mixer = new THREE.AnimationMixer(gltf.scene)
         playingModel = 1
         const action = mixer.clipAction(gltf.animations[0])
         action.play()
-    }
+    },
+    undefined,
+    (e) => console.log(e)
+)
+
+gltfLoader.load(
+    balloonsModel,
+    (gltf) => {
+        gltf.scene.scale.set(.1, .1, .1)
+        gltf.scene.rotation.set(Math.PI * 1, 0, 0)
+        gltf.scene.castShadow = true
+        gltf.scene.receiveShadow = true
+        gltf.scene.position.set(.9, 0, .35)
+        anchor4.group.add(gltf.scene)
+        mixer4 = new THREE.AnimationMixer(gltf.scene)
+        const action = mixer.clipAction(gltf.animations[0])
+        action.play()
+    },
+    undefined,
+    (e) => console.log(e)
 )
 
 gltfLoader.load(
     tshirtModel,
     (gltf) => {
-        gltf.scene.scale.set(.0006, .0006, .0006)
+        gltf.scene.scale.set(.0005, .0005, .0005)
         gltf.scene.rotation.set(Math.PI * 0.5, 0, 0)
         gltf.scene.castShadow = true
         gltf.scene.receiveShadow = true
@@ -373,54 +442,34 @@ gltfLoader.load(
         r.position.set(-.4, 0, .5)
         g.position.set(0, 0, .5)
         b.position.set(.4, 0, .5)
-
+        
         r.traverse(child => {
             if (child.isMesh) {
-                child.material = stickerMaterialR
+                child.material = material_r
             }
         })
 
         g.traverse(child => {
             if (child.isMesh) {
-                child.material = stickerMaterialG
+                child.material = material_g
             }
         })
 
         b.traverse(child => {
             if (child.isMesh) {
-                child.material = stickerMaterialB
+                child.material = material_b
             }
         })
 
-        anchor2.group.add(r)
-        anchor2_b.group.add(r)
-        anchor2_c.group.add(r) 
-        anchor2_a2.group.add(r) 
-        anchor2_b2.group.add(r) 
-        anchor2_c2.group.add(r) 
-        anchor2_a3.group.add(r) 
-        anchor2_b3.group.add(r) 
-        anchor2_c3.group.add(r) 
-
-        anchor2.group.add(g)
-        anchor2_b.group.add(g)
-        anchor2_c.group.add(g) 
-        anchor2_a2.group.add(g) 
-        anchor2_b2.group.add(g) 
-        anchor2_c2.group.add(g) 
-        anchor2_a3.group.add(g) 
-        anchor2_b3.group.add(g) 
-        anchor2_c3.group.add(g) 
-
-        anchor2.group.add(b)
-        anchor2_b.group.add(b)
-        anchor2_c.group.add(b) 
-        anchor2_a2.group.add(b) 
-        anchor2_b2.group.add(b) 
-        anchor2_c2.group.add(b) 
-        anchor2_a3.group.add(b) 
-        anchor2_b3.group.add(b) 
-        anchor2_c3.group.add(b) 
+        anchor2a.group.add(r)
+        //anchor3a.group.add(r.clone()) 
+        // anchor3b.group.add(r) 
+        anchor2a.group.add(g)
+        //anchor3a.group.add(g.clone()) 
+        // anchor3b.group.add(g) 
+        anchor2a.group.add(b) 
+        //anchor3a.group.add(b.clone()) 
+        // anchor3b.group.add(b) 
     }
 )
 
@@ -457,16 +506,17 @@ function onClick( event ) {
 
 }
 
-const stickerGeometryR = new THREE.CircleGeometry( .15, 32 );
-const stickerGeometryG = new THREE.CircleGeometry( .15, 32 );
-const stickerGeometryB = new THREE.CircleGeometry( .15, 32 );
+const stickerGeometryR = new THREE.CircleGeometry( .1, 32 );
+const stickerGeometryG = new THREE.CircleGeometry( .1, 32 );
+const stickerGeometryB = new THREE.CircleGeometry( .1, 32 );
 
-const linkedInGeometry = new THREE.CircleGeometry( .075, 32 );
-const webGeometry = new THREE.CircleGeometry( .075, 32 );
+const linkedInGeometry = new THREE.CircleGeometry( .15, 32 );
+const webGeometry = new THREE.CircleGeometry( .13, 32 );
 
-const circleR = new THREE.Mesh( stickerGeometryR, stickerMaterialR );
-const circleG = new THREE.Mesh( stickerGeometryG, stickerMaterialG );
-const circleB = new THREE.Mesh( stickerGeometryB, stickerMaterialB );
+const circleR = new THREE.Mesh( stickerGeometryR, material_sticker_red );
+const circleG = new THREE.Mesh( stickerGeometryG, material_sticker_green );
+const circleB = new THREE.Mesh( stickerGeometryB, material_sticker_blue );
+
 
 const linkedIn = new THREE.Mesh( linkedInGeometry, material_icon_linkedin)
 const web = new THREE.Mesh( webGeometry, material_icon_web )
@@ -490,35 +540,22 @@ web.name = "web"
 let els = [circleR, circleG, circleB, linkedIn, web]
 
 els.forEach((el) => {
-    anchor2.group.add(el)
-    anchor2_b.group.add(el)
-    anchor2_c.group.add(el) 
-    anchor2_a2.group.add(el) 
-    anchor2_b2.group.add(el) 
-    anchor2_c2.group.add(el) 
-    anchor2_a3.group.add(el) 
-    anchor2_b3.group.add(el) 
-    anchor2_c3.group.add(el) 
+    anchor2a.group.add(el)
 })
 
 
 //Add light
-let light = new THREE.AmbientLight(0xffffff);
-anchor.group.add(light);
-anchor1.group.add(light);
-anchor1_b.group.add(light);
-anchor2.group.add(light)
-anchor2_b.group.add(light)
-anchor2_c.group.add(light) 
-anchor2_a2.group.add(light) 
-anchor2_b2.group.add(light) 
-anchor2_c2.group.add(light) 
-anchor2_a3.group.add(light) 
-anchor2_b3.group.add(light) 
-anchor2_c3.group.add(light) 
-// anchor3.group.add(light);
-anchor4.group.add(light);
-anchor5.group.add(light);
+let light = new THREE.AmbientLight(0xffffff, .35);
+scene.add(light);
+let directionalLightBack = new THREE.DirectionalLight(new THREE.Color('hsl(0, 0%, 100%)'), 0.75);
+directionalLightBack.position.set(30, 100, 100);
+scene.add(directionalLightBack);
+
+let directionalLightFront = new THREE.DirectionalLight(new THREE.Color('hsl(0, 0%, 100%)'), 1);
+directionalLightFront.position.set(-30, 100, -100);
+scene.add(directionalLightFront);
+renderer.gammaOutput = true
+
 
 const clock = new THREE.Clock()
 let previousTime = 0
@@ -540,7 +577,9 @@ const tick = () => {
             }
         }
     }
-
+    if (mixer4) {
+        mixer4.update(deltaTime)
+    }
     renderer.render(scene, camera);
     window.requestAnimationFrame(tick)
 }
