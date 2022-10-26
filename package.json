@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "file-loader": "^6.2.0",
-    "mind-ar": "^1.1.5"
+    "mind-ar": "^1.1.5",
+    "stats.js": "^0.17.0"
   }
 }
