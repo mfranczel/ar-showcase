@@ -10,7 +10,7 @@ module.exports = merge(common, {
   devtool: false,
   output: {
     path: paths.build,
-    publicPath: '/',
+    publicPath: '/ar-showcase/',
     filename: 'js/[name].[contenthash].bundle.js',
   },
   module: {
