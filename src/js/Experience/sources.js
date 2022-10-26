@@ -14,7 +14,6 @@ import matcapImage from '../../textures/text_matcap_04.png'
 import matcapImageBlue from '../../textures/text_matcap_01b.png'
 import matcapImageGreen from '../../textures/text_matcap_01g.png'
 
-
 export default [
     {
         name: "mjolnir",
