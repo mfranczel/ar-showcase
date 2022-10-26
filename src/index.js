@@ -1,5 +1,6 @@
 
 // import target from './nfts/multitarget-erste.mind'
+<<<<<<< Updated upstream
 import target from './nfts/multitarget-erste-4.mind'
 import mjolnirModel from './models/mjolnir.glb'
 import notebookModel from './models/notebook.glb'
@@ -11,16 +12,20 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 
 import iconWeb from './images/icon-web.svg'
 import iconLinkedin from './images/icon-linkedin.svg'
+=======
+import target from './nfts/multitarget-erste-min-min.mind'
+import Experience from './js/Experience/Experience'
+
+>>>>>>> Stashed changes
 
 const THREE = window.MINDAR.IMAGE.THREE;
-const gltfLoader = new GLTFLoader();
 
-const webTexture = new THREE.TextureLoader().load( iconWeb );
-const linkedinTexture = new THREE.TextureLoader().load( iconLinkedin );
-
+<<<<<<< Updated upstream
 let mixer, raycaster, mouse, mjolnir = null;
 let mjolnirTime = 0;
 let playingModel = -1;
+=======
+>>>>>>> Stashed changes
 
 const mindarThree = new window.MINDAR.IMAGE.MindARThree({
     container: document.querySelector("#container"),
@@ -35,6 +40,7 @@ const mindarThree = new window.MINDAR.IMAGE.MindARThree({
     missTolerance:null
 });
 
+<<<<<<< Updated upstream
 const {renderer, scene, camera} = mindarThree;
 
 let anchor, anchor1, anchor1_b, anchor2, anchor2_b, anchor2_c, anchor2_a2, anchor2_b2, anchor2_c2,  anchor2_a3, anchor2_b3, anchor2_c3, anchor3, anchor4, anchor5;
@@ -544,6 +550,12 @@ const tick = () => {
     renderer.render(scene, camera);
     window.requestAnimationFrame(tick)
 }
+=======
+const anchorNames = ["button", "notebook", "stickers", "battery", "puzzle"]
 
-tick()
+const experience = new Experience(mindarThree, THREE, anchorNames)
+
+const {renderer, scene, camera} = mindarThree;
+>>>>>>> Stashed changes
+
 mindarThree.start()
