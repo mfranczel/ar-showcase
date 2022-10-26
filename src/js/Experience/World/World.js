@@ -53,9 +53,9 @@ export default class World {
     }
 
     setupOther() {
-        const arrowHelper = new this.three.ArrowHelper( new this.three.Vector3( 0, 0, -0.7 ), new this.three.Vector3( .3, 0, 0.88 ), .15, 0x393975, .05, .1 );
-        const arrowHelperSuccess = new this.three.ArrowHelper( new this.three.Vector3( -.6, 0, -0.6 ), new this.three.Vector3( .2, 0, .4 ), .25, 0x550100, .05, .1 );
-        const arrowHelperFail = new this.three.ArrowHelper( new this.three.Vector3( 0.6, 0, -0.6 ), new this.three.Vector3( .4, 0, 0.4 ), .25, 0x2A8301, .05, .1 );
+        const arrowHelper = new this.three.ArrowHelper( new this.three.Vector3( 0, 0, -0.7 ), new this.three.Vector3( -.05, 0, 0.88 ), .15, 0x393975, .05, .1 );
+        const arrowHelperSuccess = new this.three.ArrowHelper( new this.three.Vector3( -.6, 0, -0.6 ), new this.three.Vector3( -.10, 0, .4 ), .25, 0x550100, .05, .1 );
+        const arrowHelperFail = new this.three.ArrowHelper( new this.three.Vector3( 0.6, 0, -0.6 ), new this.three.Vector3( -.02, 0, 0.4 ), .25, 0x2A8301, .05, .1 );
         const decGeometry = new this.three.PlaneGeometry( .15, .15 );
         const dec = new this.three.Mesh( decGeometry, this.materials["matcapMaterialBlue"] );
 
@@ -70,7 +70,7 @@ export default class World {
         const web = new this.three.Mesh( webGeometry, this.materials.materialIconWeb )
 
         dec.rotation.set( Math.PI * .5, 0, Math.PI * .25)
-        dec.position.set(.3, 0, .5)
+        dec.position.set(-.06, 0, .5)
         circleR.rotation.set(Math.PI * .5, 0, 0)
         circleG.rotation.set(Math.PI * .5, 0, 0)
         circleB.rotation.set(Math.PI * .5, 0, 0)
@@ -128,11 +128,11 @@ export default class World {
         const tshirtModel = this.resources.items["tshirt"]
         const balloonsModel = this.resources.items["balloons"]
 
-        mjolnirModel.scene.scale.set(.03, .03, .03)
+        mjolnirModel.scene.scale.set(0.03, .03, .03)
         mjolnirModel.scene.rotation.set(.5 * Math.PI, 0, 0)
         mjolnirModel.scene.castShadow = true
         mjolnirModel.scene.receiveShadow = true
-        mjolnirModel.scene.position.set(-0.25, 0, .6)
+        mjolnirModel.scene.position.set(-0.55, 0, .6)
         this.anchors['puzzle'].group.add(mjolnirModel.scene)
         // const action = mixer.clipAction(mjolnirModel.animations[0])
         // action.play()
@@ -155,7 +155,7 @@ export default class World {
         balloonsModel.scene.rotation.set(Math.PI * 1, 0, 0)
         balloonsModel.scene.castShadow = true
         balloonsModel.scene.receiveShadow = true
-        balloonsModel.scene.position.set(.9, 0, .35)
+        balloonsModel.scene.position.set(.5, 0, .35)
         this.anchors['puzzle'].group.add(balloonsModel.scene)
 
         tshirtModel.scene.scale.set(.05, .05, .05)

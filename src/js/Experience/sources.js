@@ -83,7 +83,7 @@ export default [
     {
         name: "font",
         type: "font",
-        path: "/ar-showcase/assets/fonts/droid_sans_regular.typeface.json"
+        path: "/ar-showcase/assets/fonts/droid_sans_regular.typeface.json" //"/fonts/droid_sans_regular.typeface.json"// 
     }
 
 
