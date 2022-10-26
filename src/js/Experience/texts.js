@@ -12,7 +12,7 @@ export default [
         content: "Solve the puzzle!",
         size: 70,
         material: "matcapMaterialBlue",
-        position: [0, 0, .9],
+        position: [-0.40, 0, .9],
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: "puzzle"
@@ -21,7 +21,7 @@ export default [
         content: "Success?",
         size: 50,
         material: "matcapMaterialBlue",
-        position: [.17, 0, .67],
+        position: [-0.20, 0, .67],
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: "puzzle"
@@ -30,7 +30,7 @@ export default [
         content: "Use the hammer!",
         size: 70,
         material: "matcapMaterialRed",
-        position: [-.7, 0, .1],
+        position: [-1, 0, .1],
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: "puzzle"
@@ -39,7 +39,7 @@ export default [
         content: "Congratulations!",
         size: 70,
         material: "matcapMaterialGreen",
-        position: [.6, 0, .1],
+        position: [.17, 0, .1],
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: "puzzle"
@@ -84,7 +84,7 @@ export default [
         content: "No",
         size: 50,
         material: "matcapMaterialRed",
-        position: [0.075, 0, .4],
+        position: [-0.325, 0, .4],
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: "puzzle"
@@ -93,7 +93,7 @@ export default [
         content: "Yes",
         size: 50,
         material: "matcapMaterialGreen",
-        position: [.45, 0, .4],
+        position: [.10, 0, .4],
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: "puzzle"
