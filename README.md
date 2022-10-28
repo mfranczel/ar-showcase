@@ -40,6 +40,12 @@ You can view the deploy by creating a server in `dist`.
 cd dist && http-server
 ```
 
+For deployment, you also need to:
+
+- change /ar-showcase/ in src/js/texts to the path, on which it's deployed
+- change public path in webpack.prod.js
+
+
 ## Features
 
 - [webpack](https://webpack.js.org/)
@@ -49,4 +55,4 @@ cd dist && http-server
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is available under the [MIT License](LICENSE).
