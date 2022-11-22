@@ -89,7 +89,6 @@ export default class World {
         let els = [circleR, circleG, circleB, linkedIn, web]
 
         els.forEach((el) => {
-            console.log(el)
             this.anchors["stickers"].group.add(el)
         })
 
@@ -136,13 +135,14 @@ export default class World {
         this.anchors['puzzle'].group.add(mjolnirModel.scene)
         // const action = mixer.clipAction(mjolnirModel.animations[0])
         // action.play()
-
+        
+        /*
         notebookModel.scene.scale.set(.05, .05, .05)
         notebookModel.scene.rotation.set(0, .25 * Math.PI, .80 * Math.PI)
         notebookModel.scene.castShadow = true
         notebookModel.scene.receiveShadow = true
         notebookModel.scene.position.set(.15, 0, 1)
-        this.anchors['notebook'].group.add(notebookModel.scene)
+        this.anchors['notebook'].group.add(notebookModel.scene)*/
 
         edLogoModel.scene.scale.set(.06, .06, .06)
         edLogoModel.scene.rotation.set(Math.PI * 1, 0, 0)
@@ -190,8 +190,16 @@ export default class World {
             }
         })
 
-        this.anchors['stickers'].group.add(r)
-        this.anchors['stickers'].group.add(g) 
-        this.anchors['stickers'].group.add(b) 
+        this.anchors['stickers_a'].group.add(r)
+        this.anchors['stickers_a'].group.add(g) 
+        this.anchors['stickers_a'].group.add(b) 
+
+        this.anchors['stickers_b'].group.add(r)
+        this.anchors['stickers_b'].group.add(g) 
+        this.anchors['stickers_b'].group.add(b) 
+
+        this.anchors['stickers_c'].group.add(r)
+        this.anchors['stickers_c'].group.add(g) 
+        this.anchors['stickers_c'].group.add(b) 
     }
 }
