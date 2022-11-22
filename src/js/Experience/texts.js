@@ -60,7 +60,25 @@ export default [
         position: [-.4, 0, .55],
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
-        anchor: "stickers"
+        anchor: "stickers_a"
+    },
+    { 
+        content: "It's time to make \nData, Cloud and Code \nmatter.",
+        size: 70,
+        material: "matcapMaterialRed",
+        position: [-.4, 0, .55],
+        scale: [.001, .001, .001],
+        rotation: [.5 * Math.PI, 0, 0],
+        anchor: "stickers_b"
+    },
+    { 
+        content: "It's time to make \nData, Cloud and Code \nmatter.",
+        size: 70,
+        material: "matcapMaterialRed",
+        position: [-.4, 0, .55],
+        scale: [.001, .001, .001],
+        rotation: [.5 * Math.PI, 0, 0],
+        anchor: "stickers_c"
     },
     { 
         content: "Your company iPhone \ndoesn't have to be used \nonly for work. You may \nuse it to locate your \nkeys as well!",
