@@ -30,8 +30,6 @@ npm run build
 
 > Note: Install [http-server](https://www.npmjs.com/package/http-server) globally to deploy a simple server.
 
-```
-
 For deployment, you also need to:
 
 - change font path /ar-showcase/ in src/js/Experience/sources.js within block:
