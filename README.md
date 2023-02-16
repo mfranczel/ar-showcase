@@ -32,17 +32,17 @@ npm run build
 
 For deployment, you also need to:
 
-- change font path /ar-showcase/ in src/js/Experience/sources.js within block:
+- change font path in src/js/Experience/sources.js within block:
 
 ```javascript
 {
   name: "font",
   type: "font",
-  path: "/ar-showcase/assets/fonts/droid_sans_regular.typeface.json" 
+  path: "/{path}/assets/fonts/droid_sans_regular.typeface.json" 
 }
 ```
 
-to the path, on which it's deployed (path after /)
+to the path, on which it's deployed (path after /; e.g. /ar/assets/fonts/droid_sans_regular.typeface.json for  https://newcomerjourney.com/ar/)
 
 - change public path in webpack.prod.js (path after /)
 
