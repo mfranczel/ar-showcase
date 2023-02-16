@@ -37,11 +37,26 @@ module.exports = {
     // Generates an HTML file from a template
     // Generates deprecation warning: https://github.com/jantimon/html-webpack-plugin/issues/1501
     new HtmlWebpackPlugin({
-      title: 'webpack Boilerplate',
+      title: 'AR Showcase',
       favicon: paths.src + '/images/favicon.png',
       template: paths.src + '/template.html', // template file
-      filename: 'index.html', // output file
+      filename: 'box.html', // output file
     }),
+
+    new HtmlWebpackPlugin({
+      title: 'AR Showcase',
+      filename: 'imgs.html',
+      favicon: paths.src + '/images/favicon.png',
+      template: paths.src + '/imgs.html',
+    }),
+
+    new HtmlWebpackPlugin({
+      title: 'AR Showcase',
+      filename: 'index.html',
+      favicon: paths.src + '/images/favicon.png',
+      template: paths.src + '/index.html',
+      chunks: [],
+    })
   ],
 
   // Determine how modules within the project are treated

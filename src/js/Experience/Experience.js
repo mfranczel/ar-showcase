@@ -7,7 +7,7 @@ import { RayCaster } from "./World/RayCaster"
 let instance = null
 
 export default class Experience {
-    constructor(mindar, three, anchorNames) {
+    constructor(mindar, three, anchorNames, flat=false) {
         window.experience = this
 
         if (instance) {
@@ -25,7 +25,7 @@ export default class Experience {
         this.time = new Time(mindar)
         this.anchorNames = anchorNames
         this.setupAnchors()
-        this.world = new World()
+        this.world = new World(flat)
         this.raycaster = new RayCaster(three, this.scene, this.camera)
         this.mixer = undefined
 

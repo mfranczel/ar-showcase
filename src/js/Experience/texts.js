@@ -43,7 +43,7 @@ export default [
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: "puzzle"
-    },
+    },/*
     { 
         content: "For all your great ideas.",
         size: 90,
@@ -52,7 +52,7 @@ export default [
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: "notebook"
-    },
+    },*/
     { 
         content: "It's time to make \nData, Cloud and Code \nmatter.",
         size: 70,
@@ -88,7 +88,7 @@ export default [
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: undefined
-    },
+    },/*
     { 
         content: "Coffee can help you \nreenergize at work, \nand your brand new \npowerbank can charge \nanything else.",
         size: 70,
@@ -97,7 +97,7 @@ export default [
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: "battery"
-    },
+    },*/
     { 
         content: "No",
         size: 50,
@@ -115,5 +115,23 @@ export default [
         scale: [.001, .001, .001],
         rotation: [.5 * Math.PI, 0, 0],
         anchor: "puzzle"
-    }
+    },
+    { 
+        content: "Rediscover your childhood playfulness.",
+        size: 70,
+        material: "matcapMaterialRed",
+        position: [-.8, 0, .5],
+        scale: [.001, .001, .001],
+        rotation: [.5 * Math.PI, 0, 0],
+        anchor: "lego"
+    },
+    { 
+        content: "There might be other ways\n to solve a problem...",
+        size: 70,
+        material: "matcapMaterialRed",
+        position: [-.8, 0, .5],
+        scale: [.001, .001, .001],
+        rotation: [.5 * Math.PI, 0, 0],
+        anchor: "hammer"
+    },
 ]
