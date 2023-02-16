@@ -42,8 +42,19 @@ cd dist && http-server
 
 For deployment, you also need to:
 
-- change /ar-showcase/ in src/js/texts to the path, on which it's deployed
-- change public path in webpack.prod.js
+- change font path /ar-showcase/ in src/js/Experience/sources.js within block:
+
+```javascript
+{
+  name: "font",
+  type: "font",
+  path: "/ar-showcase/assets/fonts/droid_sans_regular.typeface.json" 
+}
+```
+
+to the path, on which it's deployed (path after /)
+
+- change public path in webpack.prod.js (path after /)
 
 
 ## Features
